@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" href="./css/home.css" /> -->
+    <style>
+      body {
+        background-position: center;
+        background-image: url("https://images.unsplash.com/photo-1592666452220-529326e2588e?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZGFyayUyMHB1cnBsZXxlbnwwfHwwfHx8MA%3D%3D");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
+
+      nav {
+        background-color: lightgray;
+        margin-bottom: 15px;
+      }
+
+      #pomodoro-section {
+        color: rgb(2, 2, 2);
+        background-color: rgb(226, 221, 221);
+        opacity: 0.8;
+        height: fit-content;
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      #task-manager-section {
+        color: rgb(2, 2, 2);
+        background-color: rgb(226, 221, 221);
+        opacity: 0.8;
+        height: fit-content;
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      #pic {
+        box-shadow: 2px 5px 10px black;
+        border-radius: 15px;
+        width: 1000px;
+      }
+
+      header {
+        margin-top: -1%;
+        background-image: url(https://myfitbrain.in/images/blogs/Tips-to-Improve-Your-Concentration-Improve-Your-Focus-And-Concentration.png);
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        opacity: 1;
+      }
+
+      .title {
+        background-color: rgba(55, 14, 58, 0.5);
+      }
+
+      #maint {
+        font-size: 3rem;
+        color: rgb(109, 30, 116); /* Blue color */
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 20px;
+        text-shadow: 2px 2px 4px rgba(247, 166, 43, 0.7);
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+      #maint:hover {
+        color: #e74c3c; /* Change color on hover */
+        transform: scale(1.1);
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+
+      .title p {
+        color: antiquewhite;
+        text-shadow: 2px 2px 2px cyan;
+        font-weight: 500;
+      }
+
+      #icon1 {
+        display: block;
+        margin: auto;
+        opacity: 1;
+        box-shadow: black;
+        border-color: black;
+        border-radius: 50%;
+      }
+
+      #iconpara {
+        text-align: center;
+        color: rgba(15, 24, 31, 0.921);
+        font-weight: bolder;
+        font-family: cursive;
+        font-size: 1rem;
+      }
+    </style>
+    <title>ConcentriQ</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item px-3">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item px-3">
+              <a class="nav-link" href="/pomo">Timer</a>
+            </li>
+            <li class="nav-item px-3">
+              <a class="nav-link" href="/todo">To-Do list</a>
+            </li>
+            <li class="nav-item px-3">
+              <a class="nav-link" href="http://localhost:3000" about="_blank"
+                >Chat Rooms</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <header>
+      <br />
+      <img
+        id="icon1"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFeP61MXWXzmiZ_Ml2lhB0I16YTl3l0TUXa2rxHrX0kzRJAPMU5FBv8T7FMZVRiWH31G4&usqp=CAU"
+        alt=""
+        class="rounded-circle mt-2"
+        width="250px"
+        height="250px"
+      />
+      <div id="iconpara">
+        <h1 id="maint">Concentri-Q</h1>
+        A focus oriented app<br /><br />
+      </div>
+    </header>
+
+    <!-- main content -->
+    <div id="down">
+      <div class="container main my-3">
+        <!-- carousel -->
+        <div id="cara">
+          <div class="carousel slide mt-5" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="3000">
+                <img
+                  id="pic"
+                  height="500px"
+                  src="https://website-cdn.studysmarter.de/sites/2/uk/Pomodoro-Technique2.webp"
+                  class="d-block w-50 mx-auto"
+                  alt=""
+                />
+              </div>
+              <!-- Add more carousel items as needed -->
+              <div class="carousel-item" data-bs-interval="3000">
+                <img
+                  id="pic"
+                  height="500px"
+                  src="https://imageio.forbes.com/specials-images/dam/imageserve/1092571024/960x0.jpg?height=474&width=711&fit=bounds"
+                  class="d-block w-50 mx-auto"
+                  alt=""
+                />
+              </div>
+              <div class="carousel-item" data-bs-interval="3000">
+                <img
+                  id="pic"
+                  height="500px"
+                  src="https://codecanyon.img.customer.envatousercontent.com/files/442831655/00_preview.png?auto=compress%2Cformat&q=80&fit=crop&crop=top&max-h=8000&max-w=590&s=261c5c75a636951f0df6d10d9f5234c8"
+                  class="d-block w-50 mx-auto"
+                  alt=""
+                />
+              </div>
+              <div class="carousel-item" data-bs-interval="3000">
+                <img
+                  id="pic"
+                  height="500px"
+                  src="https://static.twproject.com/blog/wp-content/uploads/2022/02/progress-2.png"
+                  class="d-block w-50 mx-auto"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pomodoro Timer Section -->
+        <section id="pomodoro-section" class="my-5">
+          <h1>Pomodoro Timer</h1>
+          <h3>
+            The Pomodoro Technique is a time management method that uses a timer
+            to break down work into intervals, traditionally 25 minutes in
+            length, separated by short breaks. The method is named after the
+            Italian word for "tomato" because of the tomato-shaped kitchen timer
+            that the inventor used.
+          </h3>
+          <a href="http://127.0.0.1:5501/pomo.html" class="btn btn-primary"
+            >Visit Pomodoro Timer >></a
+          >
+          <!-- Add more details about the Pomodoro Timer here -->
+        </section>
+
+        <!-- Task Manager Section -->
+        <section id="task-manager-section" class="my-5">
+          <h1>Task Manager</h1>
+          <h3>
+            A task manager is a tool that helps you organize and keep track of
+            your tasks and activities. It allows you to create, update, and
+            prioritize tasks, making it easier to manage your workload and stay
+            productive.
+          </h3>
+          <!-- Add more details about the Task Manager here -->
+          <a href="/todo" class="btn btn-primary">Visit Task Manager >></a>
+        </section>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My todo list</title>
+    <!-- <link rel="stylesheet" href="/backend/css/todesign.css" /> -->
+    <style>
+      #bgimg {
+        display: flex;
+        max-height: 200vh;
+        max-width: 200vh;
+        background-image: url("https://wallpapers-clan.com/wp-content/uploads/2023/02/lavender-aesthetic-wallpaper.jpg");
+        flex-direction: column;
+        background-position: center;
+        /*
+    background:rgba(124, 88, 126, 255) ;*/
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        opacity: 0.6;
+      }
+
+      body {
+        background-color: rgba(124, 88, 126, 255);
+      }
+      .date-cont {
+        height: 220px;
+        margin: auto;
+        display: block;
+        max-width: 220px;
+        border: 20px;
+        color: #080707;
+        font-size: 25px;
+        padding: 24px;
+        margin-top: 70px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #3498db, #e74c3c);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      }
+      .time {
+        font-size: 40px;
+        font-weight: 100;
+        display: flex;
+        margin: 30px;
+
+        color: rgb(244, 246, 246);
+      }
+
+      .dates {
+        margin: 12px;
+        size: 40px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 540px;
+        background: #f7f6f6;
+        margin: 100px auto 20px;
+        padding: 40px 30px 70px;
+        border-radius: 10px;
+      }
+      .todo_app h2 {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .todo_app h2 img {
+        width: 45px;
+        margin-left: 10px;
+      }
+      #new_form {
+        display: flex;
+      }
+      input,
+      button {
+        appearance: none;
+        border: none;
+        outline: none;
+        background: none;
+      }
+      #new_taskinput {
+        flex: 1 1 0%;
+        background-color: rgba(99, 99, 99, 0.419);
+        opacity: 1;
+        border-radius: 1rem;
+        padding: 1rem;
+        margin-right: 1rem;
+        color: rgb(34, 34, 34);
+        font-size: 20px;
+      }
+      #new_task_submit {
+        color: bisque;
+        font-size: 20px;
+        background: rgba(239, 145, 137, 255);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.4s;
+      }
+      #new_task_submit:hover {
+        opacity: 0.8;
+      }
+      #new_task_submit:active {
+        opacity: 0.6;
+      }
+
+      main {
+        flex: 1 1 0%;
+        padding: 2rem 1rem;
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      .task_list {
+        padding: 1rem;
+      }
+
+      #tasks .task {
+        display: flex;
+        justify-content: space-between;
+        background-color: #f4eded;
+        padding: 1rem;
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      #tasks .task .content .text {
+        color: rgb(97, 96, 96);
+        font-size: 20px;
+        width: 100%;
+        display: block;
+        transition: 0.4s;
+      }
+      #tasks .task .actions {
+        display: flex;
+        margin: 0 -0.5rem;
+      }
+      #back {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        background-color: grey;
+        transition: 0.4s;
+        border-radius: 90px;
+        width: fit-content;
+      }
+      .task .actions button {
+        cursor: pointer;
+        margin: 0 0.5rem;
+        text-transform: uppercase;
+        transition: 0.4s;
+      }
+      .task .actions button:hover {
+        opacity: 0.8;
+      }
+      .task .actions button:active {
+        opacity: 0.6;
+      }
+
+      .task .actions .edit {
+        background-image: linear-gradient(
+          30deg,
+          rgb(63, 20, 231),
+          rgb(212, 49, 174)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .task .actions .delete {
+        background: red;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      #tasks .task .content {
+        flex: 1 1 0%;
+      }
+
+      #info {
+        text-align: center;
+        font-weight: bolder;
+      }
+
+      h2 {
+        align-items: center;
+        display: flex;
+      }
+
+      #headd {
+        text-align: center;
+        justify-content: center;
+      }
+
+      /* Add these styles to your existing CSS or create a new stylesheet */
+
+      /* Style for the alarm input label */
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      /* Style for the alarm input field */
+      #alarmTime {
+        padding: 8px;
+        font-size: 16px;
+        margin-bottom: 15px;
+      }
+
+      /* Optional: Style for the task items and other elements */
+      .task {
+        margin-bottom: 10px;
+      }
+
+      .text {
+        width: 70%;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .edit,
+      .delete {
+        padding: 5px 10px;
+        cursor: pointer;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+      }
+
+      .edit:hover,
+      .delete:hover {
+        background-color: #2980b9;
+      }
+
+      /* Your existing CSS code */
+
+      /* Add this to your existing CSS or create a new todesign.css file */
+      .chart-container {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(
+          45deg,
+          #3498db,
+          #e74c3c
+        ); /* Gradient background */
+        padding: 20px;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        color: #fff; /* Text color */
+        max-width: 400px; /* Adjust the maximum width as needed */
+        text-align: center;
+        animation: fadeInUp 0.5s ease-out;
+      }
+
+      #openChartButton {
+        margin: auto;
+        padding: 10px 20px;
+        width: 100px;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        background-color: #4caf50; /* Green */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      #openChartButton:hover {
+        background-color: #45a049; /* Darker green on hover */
+      }
+
+      #doughnutChart {
+        max-width: 100%;
+        height: auto;
+      }
+
+      #closeChartButton {
+        display: block;
+        margin-top: 10px;
+        cursor: pointer;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bgimg">
+      <button id="back" onclick="redirectToHome()">Go to Home</button>
+      <button id="openChartButton">Open Chart</button>
+
+      <div id="chartContainer" class="chart-container">
+        <div id="accuracyDisplay"></div>
+        <canvas id="doughnutChart" width="400" height="400"></canvas>
+        <button id="closeChartButton">Close Chart</button>
+      </div>
+      <!--date and time-->
+      <div class="date-cont">
+        <div class="time"></div>
+        <div class="dates"></div>
+      </div>
+
+      <!--to do list-->
+      <div class="container">
+        <!--Adding task part-->
+        <div class="todo_app">
+          <h2 id="headd">
+            My Task Manager<img
+              src="img/pngtree-to-do-list-vector-png-image_3926539-removebg-preview.png"
+              alt=""
+            />
+          </h2>
+          <form id="new_form">
+            <input
+              type="text"
+              id="new_taskinput"
+              placeholder="what have you planned!"
+            />
+            <label for="alarmTime">Alarm Time:</label>
+            <input type="time" id="alarmTime" name="alarmTime" />
+            <input type="submit" id="new_task_submit" value="ADD" />
+          </form>
+          <div id="info" action="" method="">
+            <p>TOTAL TASKS: <span id="totalTasks">0</span></p>
+            <p>COMPLETED TASKS: <span id="completedTasks">0</span></p>
+          </div>
+        </div>
+
+        <!--tasks -->
+        <main>
+          <section class="task_list">
+            <div id="tasks">
+              <!--<div class="task">
+                        <div class="content">
+                            <input 
+                            type="text"
+                            class="text"
+                            value="my task"
+                            readonly
+                            />
+                        </div>
+                        <div class="actions">
+                            <button class="edit">Edit</button>
+                            <button class="delete">x</button>
+                        </div>
+                    </div>-->
+            </div>
+          </section>
+        </main>
+        <!--end of container class-->
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="./toscript.js"></script> -->
+  </body>
+
+  <script>
+    //time fxns
+    function redirectToHome() {
+      // You can replace 'index.html' with the actual URL of your home page
+      window.location.href = "http://localhost:5000/home";
+    }
+    const timeEle = document.querySelector(".time");
+    const dateEle = document.querySelector(".dates");
+
+    /**
+     * @param {Date} date
+     */
+
+    function formattime(date) {
+      const hours12 = date.getHours();
+      const min = date.getMinutes();
+      const isam = date.getHours() < 12;
+      return `${hours12.toString().padStart(2, "0")}:${min
+        .toString()
+        .padStart(2, "0")}`;
+    }
+
+    function formatdate(date) {
+      const days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const month = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      return `${days[date.getDay()]}, ${
+        month[date.getMonth()]
+      } ${date.getDate()} ${date.getFullYear()}`;
+    }
+
+    setInterval(() => {
+      const now = new Date();
+
+      timeEle.textContent = formattime(now);
+      dateEle.textContent = formatdate(now);
+    }, 200);
+
+    window.addEventListener("load", () => {
+      const form = document.querySelector("#new_form");
+      const input = document.querySelector("#new_taskinput");
+      const list_el = document.querySelector("#tasks");
+      const totalTasksDisplay = document.querySelector("#totalTasks");
+      const completedTasksDisplay = document.querySelector("#completedTasks");
+      const openChartButton = document.querySelector("#openChartButton");
+      const chartContainer = document.querySelector("#chartContainer");
+      const closeChartButton = document.querySelector("#closeChartButton");
+
+      // Load tasks from local storage when the page is loaded
+      loadTasks();
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const task = input.value;
+        if (!task) {
+          alert("Please Fill Something!!");
+          return;
+        }
+
+        // Retrieve the alarm time from the user
+        const alarmTime = document.querySelector("#alarmTime").value;
+
+        const task_el = createTaskElement(task, false, alarmTime);
+        list_el.appendChild(task_el);
+
+        // Save tasks to local storage
+        saveTasks();
+
+        input.value = "";
+        document.querySelector("#alarmTime").value = ""; // Clear the alarm time input
+
+        // Update task count displays
+        updateTaskCount();
+        updateChart();
+      });
+
+      openChartButton.addEventListener("click", () => {
+        // Show the chart container
+        chartContainer.style.display = "block";
+
+        // Update the chart
+        updateChart();
+      });
+
+      closeChartButton.addEventListener("click", () => {
+        // Hide the chart container
+        chartContainer.style.display = "none";
+      });
+
+      function createTaskElement(text, isCompleted, alarmTime) {
+        const task_el = document.createElement("div");
+        task_el.classList.add("task");
+
+        const task_content_el = document.createElement("div");
+        task_content_el.classList.add("content");
+
+        task_el.appendChild(task_content_el);
+
+        const task_input_el = document.createElement("input");
+        task_input_el.classList.add("text");
+        task_input_el.value = text;
+        task_input_el.setAttribute("readonly", "readonly");
+
+        // Toggle strike-through based on 'isCompleted' property
+        if (isCompleted) {
+          task_input_el.style.textDecoration = "line-through red";
+        }
+
+        task_content_el.appendChild(task_input_el);
+
+        const task_actions_el = document.createElement("div");
+        task_actions_el.classList.add("actions");
+
+        const task_edit_el = document.createElement("button");
+        task_edit_el.classList.add("edit");
+        task_edit_el.innerHTML = "Edit";
+
+        const task_delete_el = document.createElement("button");
+        task_delete_el.classList.add("delete");
+        task_delete_el.innerHTML = "x";
+
+        task_actions_el.appendChild(task_edit_el);
+        task_actions_el.appendChild(task_delete_el);
+
+        task_el.appendChild(task_actions_el);
+
+        // Add event listeners for edit, delete, and click actions
+        task_edit_el.addEventListener("click", () => {
+          toggleEditMode(task_input_el, task_edit_el);
+        });
+
+        task_delete_el.addEventListener("click", () => {
+          list_el.removeChild(task_el);
+          // Save tasks to local storage when deleted
+          saveTasks();
+          // Update task count displays
+          updateTaskCount();
+          updateChart();
+        });
+
+        task_content_el.addEventListener("click", () => {
+          toggleStrikeThrough(task_input_el);
+          // Save tasks to local storage when task is clicked
+          saveTasks();
+          // Update task count displays
+          updateTaskCount();
+          updateChart();
+        });
+
+        // Set up the alarm for the task
+        setTaskAlarm(alarmTime, text);
+
+        return task_el;
+      }
+
+      // Function to toggle strike-through
+      function toggleStrikeThrough(element) {
+        if (element.style.textDecoration === "line-through red") {
+          element.style.textDecoration = "none";
+        } else {
+          element.style.textDecoration = "line-through red";
+        }
+      }
+
+      // Function to toggle edit mode
+      function toggleEditMode(element, editButton) {
+        if (editButton.innerText.toLowerCase() == "edit") {
+          element.removeAttribute("readonly");
+          element.focus();
+          editButton.innerText = "save";
+        } else {
+          element.setAttribute("readonly", "readonly");
+          editButton.innerText = "Edit";
+          // Save tasks to local storage when edited
+          saveTasks();
+        }
+      }
+
+      function setTaskAlarm(alarmTime, task) {
+        const currentTime = new Date();
+        const alarmDateTime = new Date(
+          `${currentTime.toDateString()} ${alarmTime}`
+        );
+
+        // Calculate the time difference in milliseconds
+        const timeDifference = alarmDateTime - currentTime;
+
+        if (timeDifference > 0) {
+          // Set a timeout for the alarm
+          setTimeout(() => {
+            // Play the sound and display an alert when the alarm time is reached
+            playAlarmWithAlert(task);
+          }, timeDifference);
+        } else {
+          // If the specified alarm time is in the past, display a warning
+          console.warn("Warning: The specified alarm time is in the past.");
+        }
+      }
+
+      function playAlarmWithAlert(task) {
+        // Create an audio context
+        const audioContext = new (window.AudioContext ||
+          window.webkitAudioContext)();
+
+        // Load the audio file
+        fetch("telephone-ring-03a.mp3")
+          .then((response) => response.arrayBuffer())
+          .then((data) => audioContext.decodeAudioData(data))
+          .then((buffer) => {
+            // Create an audio buffer source
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+
+            // Connect the source to the audio context's destination (speakers)
+            source.connect(audioContext.destination);
+
+            // Start the playback
+            source.start();
+
+            // Display an alert when the sound starts
+            alert(`Reminder: It's time to complete the task - ${task}`);
+          })
+          .catch((error) => console.error("Error loading audio:", error));
+      }
+
+      // Display an alert when the alarm time is reached
+
+      // Function to save tasks to local storage
+      function saveTasks() {
+        const tasks = Array.from(list_el.children).map((task_el) => {
+          return {
+            text: task_el.querySelector(".text").value,
+            isCompleted:
+              task_el.querySelector(".text").style.textDecoration ===
+              "line-through red",
+          };
+        });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
+
+      // Function to load tasks from local storage
+      function loadTasks() {
+        const storedTasks = localStorage.getItem("tasks");
+        if (storedTasks) {
+          const tasks = JSON.parse(storedTasks);
+          tasks.forEach((task) => {
+            const task_el = createTaskElement(task.text, task.isCompleted);
+            list_el.appendChild(task_el);
+          });
+          // Update task count displays
+          updateTaskCount();
+          updateChart();
+        }
+      }
+
+      // Function to update task count displays
+
+      function updateTaskCount() {
+        const totalTasks = list_el.children.length;
+        const completedTasks = Array.from(list_el.children).filter(
+          (task_el) => {
+            return (
+              task_el.querySelector(".text").style.textDecoration ===
+              "line-through red"
+            );
+          }
+        ).length;
+
+        totalTasksDisplay.textContent = totalTasks;
+        completedTasksDisplay.textContent = completedTasks;
+      }
+
+      function updateChart() {
+        const completedTasks = Array.from(list_el.children).filter(
+          (task_el) => {
+            return (
+              task_el.querySelector(".text").style.textDecoration ===
+              "line-through red"
+            );
+          }
+        ).length;
+
+        const remainingTasks = totalTasksDisplay.textContent - completedTasks;
+
+        const accuracy =
+          totalTasksDisplay.textContent > 0
+            ? (completedTasks / totalTasksDisplay.textContent) * 100
+            : 0;
+
+        // Update the accuracy display
+        const accuracyDisplay = document.getElementById("accuracyDisplay");
+        accuracyDisplay.textContent = `Accuracy: ${accuracy.toFixed(2)}%`;
+
+        // Update the doughnut chart
+        const ctx = document.getElementById("doughnutChart").getContext("2d");
+        new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: ["Completed Tasks", "Remaining Tasks"],
+            datasets: [
+              {
+                data: [completedTasks, remainingTasks],
+                backgroundColor: [
+                  "rgba(75, 192, 192, 0.7)",
+                  "rgba(255, 99, 132, 0.7)",
+                ],
+              },
+            ],
+          },
+          options: {
+            responsive: false, // Ensure that the chart does not respond to the size of its container
+            maintainAspectRatio: false, // Do not maintain the aspect ratio
+          },
+        });
+      }
+    });
+  </script>
+</html>

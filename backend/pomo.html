@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customizable Timer</title>
+    <!-- <link rel="stylesheet" href="./css/pomo.css" /> -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-image: url("https://img.freepik.com/premium-photo/violet-mountain-silhouette-background-ai-generated_946993-1440.jpg");
+        display: flex;
+        background-size: 100% 140%;
+        background-repeat: no-repeat;
+        opacity: 0.85;
+      }
+      .top {
+        display: block;
+      }
+      #fullscreenButton {
+        margin-top: 20px;
+        margin-left: 20px;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline;
+        font-size: 16px;
+        background-color: rgb(136, 72, 205);
+        transition: 0.4s;
+        border-radius: 90px;
+      }
+
+      #fullscreenMessage {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: #f00;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        display: none;
+        cursor: default; /* Disable cursor for the message */
+      }
+
+      #closeButton {
+        position: fixed;
+        top: 5px;
+        right: 10px;
+        font-size: 20px;
+        color: #fff;
+        cursor: pointer;
+        display: none;
+      }
+
+      #left_div {
+        margin-top: 50px;
+        width: 20%;
+        display: inline-block;
+        flex: 1;
+        box-sizing: border-box;
+        padding: 10px;
+      }
+
+      #right_div {
+        height: 100%;
+        flex: 1;
+        width: 40%;
+        box-sizing: border-box;
+        padding: 10px;
+        margin-top: 30px;
+        overflow: visible;
+      }
+
+      #spot {
+        overflow: hidden;
+        display: flex;
+      }
+
+      #timer {
+        color: white;
+        background: linear-gradient(45deg, #3498db, #e74c3c);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        display: flex;
+        font-size: 36px;
+        margin-left: 360px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        width: 200px;
+        height: 200px;
+        border: 8px solid rgba(153, 171, 235, 255); /* Circular border color */
+        border-radius: 50%; /* Make it circular */
+        padding: 15px;
+        transition: all 0.3s ease; /* Add transition effect for smoother changes */
+        animation: pulse 2s infinite alternate; /* Add pulsating animation */
+      }
+
+      @keyframes glow {
+        0% {
+          box-shadow: 0 0 10px rgba(153, 171, 235, 0.8);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(153, 171, 235, 1),
+            0 0 30px rgba(153, 171, 235, 0.8);
+        }
+        100% {
+          box-shadow: 0 0 10px rgba(153, 171, 235, 0.8);
+        }
+      }
+      #timer:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        animation: glow 2s infinite;
+      }
+
+      #buttons {
+        margin-top: 10px;
+        margin-left: 240px;
+        padding: 20px;
+      }
+
+      #button {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        background-color: rgba(153, 171, 235, 255);
+        transition: 0.4s;
+        border-radius: 90px;
+      }
+      #startbutton {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        background-color: rgba(153, 171, 235, 255);
+        transition: 0.4s;
+        border-radius: 90px;
+      }
+      #startbutton:hover {
+        background-color: rgba(239, 145, 137, 255);
+        color: white;
+        opacity: 0.8;
+      }
+      #startbutton:active {
+        opacity: 0.6;
+      }
+
+      #button:hover {
+        background-color: rgba(239, 145, 137, 255);
+        color: white;
+        opacity: 0.8;
+      }
+      #button:active {
+        opacity: 0.6;
+      }
+      /* Style for the input fields */
+      input {
+        padding: 8px;
+        margin: 5px;
+        margin-left: 360px;
+        border: 1px solid #60f1f3;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      #back {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        background-color: grey;
+        transition: 0.4s;
+        border-radius: 90px;
+      }
+      /* Style for the label associated with the input fields */
+      label {
+        margin-bottom: 5px;
+        margin-left: 360px;
+        display: flex;
+        color: white;
+      }
+
+      #right_div {
+        position: absolute;
+        top: 0; /* Adjust the top position as needed */
+        right: 0; /* Position the div to the right side of the page */
+        padding: 10px; /* Add some padding for spacing */
+      }
+
+      @keyframes pulse {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <div id="fullscreenMessage">
+        You are currently in website blocker mode
+      </div>
+      <div id="closeButton" onclick="closeFullscreenMessage()">✕</div>
+    </div>
+
+    <div id="left_div">
+      <button onclick="toggleFullscreen()" id="fullscreenButton">
+        Fullscreen
+      </button>
+      <div>
+        <label for="duration">Work Time (in min) </label>
+        <input type="number" id="duration" value="25" />
+      </div>
+      <div>
+        <label for="breakDuration">Break time (in min) </label>
+        <input type="number" id="breakDuration" value="5" />
+      </div>
+      <div id="timer">25:00</div>
+      <div id="buttons">
+        <button id="startbutton" onclick="startTimer()" disabled>Start</button>
+        <button id="button" onclick="pauseTimer()">Pause</button>
+        <button id="button" onclick="resumeTimer()">Resume</button>
+        <button id="button" onclick="resetTimer()">Reset</button>
+      </div>
+      <button id="back" onclick="redirectToHome()">Go to Home</button>
+    </div>
+
+    <div id="right_div">
+      <iframe
+        id="spot"
+        src="https://open.spotify.com/embed/playlist/1UT61M6vzdLExZvZ0B6qQM?utm_source=generator"
+        width="100%"
+        scrolling="no"
+        height="700"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+    <br /><br /><br /><br />
+
+    <script>
+      let timer;
+      let isWorkTime = true;
+      let isPaused = false;
+      let duration = 25 * 60; // default work duration in seconds
+      let breakDuration = 5 * 60; // default break duration in seconds;
+      // Tab switch counter
+      let tabSwitchCount = 0;
+      function redirectToHome() {
+        // You can replace 'index.html' with the actual URL of your home page
+        window.location.href = "/home";
+      }
+
+      // Fullscreen message
+      const fullscreenMessage = document.getElementById("fullscreenMessage");
+      const closeButton = document.getElementById("closeButton");
+      let isFullscreen = false;
+
+      // Mouse position variables
+      let mouseX = 0;
+      let mouseY = 0;
+
+      // Update mouse position on mousemove
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function startTimer() {
+        if (!timer) {
+          duration =
+            parseInt(document.getElementById("duration").value, 10) * 60 ||
+            25 * 60;
+          breakDuration =
+            parseInt(document.getElementById("breakDuration").value, 10) * 60 ||
+            5 * 60;
+
+          timer = setInterval(updateTimer, 1000);
+          enableButtons();
+        }
+      }
+
+      function pauseTimer() {
+        clearInterval(timer);
+        timer = undefined;
+        isPaused = true;
+        updateDisplay(duration);
+      }
+
+      function resumeTimer() {
+        if (isPaused) {
+          timer = setInterval(updateTimer, 1000);
+          isPaused = false;
+          enableButtons();
+        }
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        timer = undefined;
+        isWorkTime = true;
+        isPaused = false;
+        duration =
+          parseInt(document.getElementById("duration").value, 10) * 60 ||
+          25 * 60;
+        updateDisplay(duration);
+        enableButtons();
+        // Hide the session ended text
+      }
+
+      var audio = new Audio("telephone-ring-03a.mp3"); // Replace 'path/to/timer-sound.mp3' with the actual path to your timer sound file
+
+      // Replace 'path/to/timer-sound.mp3' with the actual path to your timer sound file
+
+      function updateTimer() {
+        if (!isPaused) {
+          if (duration === 0) {
+            if (isWorkTime) {
+              duration = breakDuration;
+              alertAndPlayTimerSound("Work time is up!");
+            } else {
+              duration =
+                parseInt(document.getElementById("duration").value, 10) * 60 ||
+                25 * 60;
+              alertAndPlayTimerSound("Break time is up!");
+            }
+            isWorkTime = !isWorkTime;
+          } else {
+            duration--;
+          }
+          updateDisplay(duration);
+        }
+      }
+
+      function alertAndPlayTimerSound(message) {
+        playTimerSound(function () {
+          alert(message);
+        });
+      }
+
+      function playTimerSound(callback) {
+        audio.play();
+
+        // Ensure the callback is a function
+        if (typeof callback === "function") {
+          audio.addEventListener("ended", callback);
+        }
+      }
+
+      // Function to play the alarm sou
+
+      function updateDisplay(currentDuration) {
+        const formattedMinutes = Math.floor(currentDuration / 60);
+        const formattedSeconds = currentDuration % 60;
+
+        const timerDisplay = document.getElementById("timer");
+        timerDisplay.innerText = `${
+          formattedMinutes < 10 ? "0" : ""
+        }${formattedMinutes}:${
+          formattedSeconds < 10 ? "0" : ""
+        }${formattedSeconds}`;
+
+        if (isWorkTime) {
+          timerDisplay.style.color = "green";
+        } else {
+          timerDisplay.style.color = "red";
+        }
+      }
+      function handleVisibilityChange() {
+        if (document.visibilityState === "visible") {
+          tabSwitchCount++;
+          alert(
+            "Concentri-Q says you have taken a detour!   Total switches: " +
+              tabSwitchCount
+          );
+          // Display the session ended text
+        }
+      }
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      // Fullscreen event listener
+      document.addEventListener("fullscreenchange", () => {
+        isFullscreen = !isFullscreen;
+
+        if (isFullscreen) {
+          fullscreenMessage.style.display = "block";
+          closeButton.style.display = "block";
+          enableStartButton(); // Enable the Start button when entering fullscreen
+        } else {
+          fullscreenMessage.style.display = "none";
+          closeButton.style.display = "none";
+          disableStartButton(); // Disable the Start button when exiting fullscreen
+        }
+      });
+
+      // Function to close the fullscreen message
+      function closeFullscreenMessage() {
+        fullscreenMessage.style.display = "none";
+        closeButton.style.display = "none";
+      }
+
+      // Function to toggle fullscreen
+      function toggleFullscreen() {
+        const elem = document.documentElement;
+
+        if (!isFullscreen) {
+          if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+          } else if (elem.mozRequestFullScreen) {
+            /* Firefox */
+            elem.mozRequestFullScreen();
+          } else if (elem.webkitRequestFullscreen) {
+            /* Chrome, Safari & Opera */
+            elem.webkitRequestFullscreen();
+          } else if (elem.msRequestFullscreen) {
+            /* IE/Edge */
+            elem.msRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.mozCancelFullScreen) {
+            /* Firefox */
+            document.mozCancelFullScreen();
+          } else if (document.webkitExitFullscreen) {
+            /* Chrome, Safari & Opera */
+            document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+            /* IE/Edge */
+            document.msExitFullscreen();
+          }
+        }
+      }
+
+      // Helper functions to enable/disable buttons
+      function disableButtons() {
+        document.getElementById("button").disabled = true;
+        document.getElementById("startbutton").disabled = true;
+        document.getElementById("fullscreenButton").disabled = true;
+      }
+
+      function enableButtons() {
+        document.getElementById("button").disabled = false;
+        document.getElementById("startbutton").disabled = false;
+        document.getElementById("fullscreenButton").disabled = false;
+      }
+
+      function enableStartButton() {
+        document.getElementById("startbutton").disabled = false;
+      }
+
+      function disableStartButton() {
+        document.getElementById("startbutton").disabled = true;
+      }
+
+      // Display message only when the mouse is near the top
+      function displayMessageNearTop() {
+        if (mouseY < 30 && isFullscreen) {
+          // Adjust this value based on your layout
+          fullscreenMessage.style.display = "block";
+        } else {
+          fullscreenMessage.style.display = "none";
+        }
+      }
+
+      // Update the message display on mouse move
+      document.addEventListener("mousemove", displayMessageNearTop);
+    </script>
+  </body>
+</html>
